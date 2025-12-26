@@ -1,6 +1,7 @@
 #pragma once
 #include <cstddef>
 #include <cstdint>
+#include <tuple>
 
 namespace tuple_utils
 {

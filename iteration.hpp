@@ -77,6 +77,12 @@ struct ForEach<uint64_t(-1), T>
 
 	template<typename ...Params>
 	inline static void fn(Params&&... params) { }
+
+	constexpr static bool constFn() { return false; }
+
+	template<typename ...Params>
+	constexpr static bool constFn(Params&&... params) { return false; }
+
 };
 
 template <typename Tuple, typename Callback>

@@ -73,7 +73,6 @@ private:
 		}
 	};
 
-	template <typename>
 	struct DependencyCallback
 	{
 		template <typename T, typename F>

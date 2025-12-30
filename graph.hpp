@@ -28,17 +28,29 @@ struct Graph
 		return directlyDependsOn<A, B>() || transitivelyDependsOn<A, B>();
 	}
 
-	// template <typename A, typename F>
-	// static inline void forDependants2(F f)
-	// {
-	// 	OncePerType<Subset<Set<Nodes...>, DependsOnFilter<A>>, DependencyCallback>::fn(f);
-	// }
+	template <typename A, typename F>
+	static inline void forDependants2(F f)
+	{
+		OncePerType<Subset<Set<Nodes...>, DependsOnFilter<A>>, DependencyCallback>::fn(f);
+	}
 
-	// template <typename A, typename F>
-	// static inline void forDirectDependants2(F f)
-	// {
-	// 	OncePerType<Subset<Set<Nodes...>, DirectlyDependsOnFilter<A>>, DependencyCallback>::fn(f);
-	// }
+	template <typename A, typename F>
+	static inline void forDirectDependants2(F f)
+	{
+		OncePerType<Subset<Set<Nodes...>, DirectlyDependsOnFilter<A>>, DependencyCallback>::fn(f);
+	}
+
+	template <typename A>
+	static constexpr uint64_t numDependees()
+	{
+		return 0; // todo
+	}
+
+	template <typename A>
+	static constexpr uint64_t numDependencies()
+	{
+		return std::tuple_size<Set<typename Dependencies<A>::type>>::value;
+	}
 
 private:
 	template <typename A>

@@ -193,4 +193,37 @@ struct SubsetImpl_2<std::tuple<A...>, F>
 template<typename Tuple, typename F>
 using Subset = typename SubsetImpl_2<Tuple, F>::type;
 
+template <typename A, typename M, typename ...R>
+struct MapImpl;
+
+template <typename ...A, typename M, typename V, typename ...R>
+struct MapImpl<std::tuple<A...>, M, V, R...>
+{
+	using type = typename MapImpl<std::tuple<A..., typename M::type<V>>, M, R...>::type;
+};
+
+template <typename ...A, typename M, typename V>
+struct MapImpl<std::tuple<A...>, M, V>
+{
+	using type = std::tuple<A..., typename M::type<V>>;
+};
+
+template <typename ...A, typename M>
+struct MapImpl<std::tuple<A...>, M>
+{
+	using type = std::tuple<A...>;
+};
+
+template <typename M, typename A>
+struct MapImpl2;
+
+template <typename M, typename ...A>
+struct MapImpl2<M, std::tuple<A...>>
+{
+	using type = typename MapImpl<std::tuple<>, M, A...>::type;
+};
+
+template <typename Tuple, typename M>
+using Map = typename MapImpl2<M, Tuple>::type;
+
 } //namespace tuple_utils

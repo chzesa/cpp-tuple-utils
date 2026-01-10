@@ -190,6 +190,12 @@ struct SubsetImpl_2<std::tuple<A...>, F>
 	using type = typename SubsetImpl<F, std::tuple<>, A...>::type;
 };
 
+template <typename F>
+struct SubsetImpl_2<std::tuple<>, F>
+{
+	using type = std::tuple<>;
+};
+
 template<typename Tuple, typename F>
 using Subset = typename SubsetImpl_2<Tuple, F>::type;
 

@@ -156,6 +156,7 @@ struct Variant
 	Variant& operator = (const V& v)
 	{
 		static_assert(keyOf<V>() != -1, "Type is not a member of variant.");
+		Impl::destroy(_key, data);
 		_key = keyOf<V>();
 		new(data) V(v);
 		return *this;
@@ -163,9 +164,10 @@ struct Variant
 
 	Variant& operator = (const Variant& v)
 	{
+		Impl::destroy(_key, data);
 		_key = v._key;
 		switchf2([&] <typename T> (T& value) {
-			value = v.template view<T>();
+			new(data) T(v.template view<T>());
 		});
 		return *this;
 	}

@@ -105,7 +105,7 @@ struct VariantImpl <N, Value>
 
 
 template <typename ...Values>
-struct alignas(VariantImpl<sizeof...(Values), Values...>::alignOf() * sizeof(size_t)) Variant
+struct Variant
 {
 	using tuple = std::tuple<Values...>;
 	using Impl = VariantImpl<sizeof...(Values) - 1, Values...>;
@@ -275,8 +275,9 @@ struct alignas(VariantImpl<sizeof...(Values), Values...>::alignOf() * sizeof(siz
 	}
 
 private:
-	char data[Impl::sizeOf()];
 	size_t _key;
+	alignas(VariantImpl<sizeof...(Values), Values...>::alignOf())
+	unsigned char data[Impl::sizeOf()];
 };
 
 template <typename ...Values>

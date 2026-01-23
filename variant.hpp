@@ -122,8 +122,10 @@ struct Variant
 
 	Variant(Variant&& v)
 	{
+		v.switchf2([&] <typename T> (T& value) {
+			new (data) T(std::move(value));
+		});
 		_key = v._key;
-		memcpy(data, v.data, sizeof data);
 	}
 
 	Variant(const Variant& v)

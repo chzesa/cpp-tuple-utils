@@ -27,7 +27,7 @@ struct VariantImpl
 	template <typename V>
 	static constexpr size_t keyOf()
 	{
-		return std::is_same<V, Value>() ? N - sizeof...(Rest) : Next::template keyOf<V>();
+		return std::is_same<V, Value>::value ? N - sizeof...(Rest) : Next::template keyOf<V>();
 	}
 
 	static constexpr size_t sizeOf()
@@ -74,7 +74,7 @@ struct VariantImpl <N, Value>
 	template <typename V>
 	static constexpr size_t keyOf()
 	{
-		return std::is_same<V, Value>() ? N : -1;
+		return std::is_same<V, Value>::value ? N : -1;
 	}
 
 	static constexpr size_t sizeOf()

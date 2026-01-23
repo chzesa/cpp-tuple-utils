@@ -136,14 +136,6 @@ struct Variant
 		});
 	}
 
-	Variant(Variant& v)
-	{
-		_key = v._key;
-		switchf2([&] <typename T> (T& value) {
-			value = v.template view<T>();
-		});
-	}
-
 	template <typename V>
 	explicit Variant(const V& v)
 	{

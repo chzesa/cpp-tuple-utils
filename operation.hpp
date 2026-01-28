@@ -166,7 +166,7 @@ struct SubsetImpl<F, std::tuple<A...>, V, R...>
 {
 	using type = typename std::conditional<
 		F::template test<V>()
-		, SubsetImpl<F, std::tuple<V, A...>, R...>
+		, SubsetImpl<F, std::tuple<A..., V>, R...>
 		, SubsetImpl<F, std::tuple<A...>, R...>
 	>::type::type;
 };
@@ -176,7 +176,7 @@ struct SubsetImpl<F, std::tuple<A...>, V>
 {
 	using type = typename std::conditional<
 		F::template test<V>()
-		, Set<V, A...>
+		, Set<A..., V>
 		, Set<A...>
 	>::type;
 };

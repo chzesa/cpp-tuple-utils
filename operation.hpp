@@ -205,13 +205,13 @@ struct MapImpl;
 template <typename ...A, typename M, typename V, typename ...R>
 struct MapImpl<std::tuple<A...>, M, V, R...>
 {
-	using type = typename MapImpl<std::tuple<A..., typename M::type<V>>, M, R...>::type;
+	using type = typename MapImpl<std::tuple<A..., typename M::template type<V>>, M, R...>::type;
 };
 
 template <typename ...A, typename M, typename V>
 struct MapImpl<std::tuple<A...>, M, V>
 {
-	using type = std::tuple<A..., typename M::type<V>>;
+	using type = std::tuple<A..., typename M::template type<V>>;
 };
 
 template <typename ...A, typename M>

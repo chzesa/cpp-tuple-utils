@@ -149,7 +149,7 @@ struct Variant
 	{
 		static_assert(keyOf<V>() != -1, "Type is not a member of variant.");
 		_key = keyOf<V>();
-		new (data) std::remove_reference<V>::type(v);
+		new (data) typename std::remove_reference<V>::type(v);
 	}
 
 	template <typename V>

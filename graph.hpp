@@ -56,7 +56,7 @@ struct Graph
 	struct MapperI
 	{
 		template <typename T>
-		using type = std::tuple_element<I, T>::type;
+		using type = typename std::tuple_element<I, T>::type;
 	};
 
 	// finds all * s.t. exists edge <N, *>

@@ -245,8 +245,8 @@ struct Variant
 	{
 		static_assert(keyOf<V>() != -1, "Type is not a member of variant.");
 		if (key() != -1) Impl::destroy(_key, data);
+		new(data) V(v);
 		_key = keyOf<V>();
-		*(reinterpret_cast<V*>(data)) = v;
 	}
 
 	template <typename V>
@@ -254,8 +254,8 @@ struct Variant
 	{
 		static_assert(keyOf<V>() != -1, "Type is not a member of variant.");
 		if (key() != -1) Impl::destroy(_key, data);
+		new(data) V(std::forward(v));
 		_key = keyOf<V>();
-		*(reinterpret_cast<typename std::remove_reference<V>::type*>(data)) = v;
 	}
 
 	size_t key() const

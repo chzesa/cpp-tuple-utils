@@ -69,6 +69,12 @@ struct Index
 	static constexpr std::size_t value = IndexImpl<V, Tuple>::value;
 };
 
+template <typename V, typename Tuple>
+static constexpr std::size_t index()
+{
+	return Index<V, Tuple>::value;
+};
+
 template <typename A, typename B, typename ...R>
 struct DifferenceImpl;
 

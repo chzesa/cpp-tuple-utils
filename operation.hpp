@@ -238,4 +238,22 @@ struct MapImpl2<M, std::tuple<A...>>
 template <typename Tuple, typename M>
 using Map = typename MapImpl2<M, Tuple>::type;
 
+template <std::size_t I, typename T>
+struct NumberedImpl;
+
+template <std::size_t I, typename V, typename ...R>
+struct NumberedImpl<I, std::tuple<V, R...>>
+{
+	using type = decltype(std::tuple_cat(std::tuple< std::tuple<std::integral_constant<std::size_t, I>, V> >(), typename NumberedImpl<I + 1, std::tuple<R...>>::type()));
+};
+
+template <std::size_t I>
+struct NumberedImpl<I, std::tuple<>>
+{
+	using type = std::tuple<>;
+};
+
+template <typename T>
+using Numbered = typename NumberedImpl<0, T>:: type;
+
 } //namespace tuple_utils

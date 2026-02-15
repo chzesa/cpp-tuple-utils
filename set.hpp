@@ -30,7 +30,7 @@ struct SetImpl<SetImpl2<A...>, V, R...>
 	using type = typename std::conditional<
 		std::is_base_of<SetLeaf<V>, SetImpl2<A...>>() ? true : false
 		, SetImpl<SetImpl2<A...>, R...>
-		, SetImpl<SetImpl2<V, A...>, R...>
+		, SetImpl<SetImpl2<A..., V>, R...>
 	>::type::type;
 };
 
@@ -40,7 +40,7 @@ struct SetImpl<SetImpl2<A...>, V>
 	using type = typename std::conditional<
 		std::is_base_of<SetLeaf<V>, SetImpl2<A...>>() ? true : false
 		, std::tuple<A...>
-		, std::tuple<V, A...>
+		, std::tuple<A..., V>
 	>::type;
 };
 

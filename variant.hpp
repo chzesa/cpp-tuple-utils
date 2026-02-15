@@ -58,7 +58,7 @@ struct VariantImpl
 		if (keyOf<Value>() == key)
 			f(t.template get<Value>());
 		else
-			Next::template switchf2(key, f, t);
+			Next::template switchf2<F, T>(key, f, t);
 	}
 };
 
@@ -180,7 +180,7 @@ struct Variant
 	template <typename F>
 	bool switchf2(F f)
 	{
-		Impl::template switchf2(_key, f, *this);
+		Impl::template switchf2<F, Variant<Values...>&>(_key, f, *this);
 		return _key != -1;
 	}
 

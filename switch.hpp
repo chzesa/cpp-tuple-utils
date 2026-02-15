@@ -31,7 +31,7 @@ struct SwitchImpl
 		if (i == Num - 1)
 			f.template operator() <typename std::tuple_element<Num - 1, Tuple>::type>();
 		else
-			SwitchImpl<Tuple, Num - 1>::template fn2(i, f);
+			SwitchImpl<Tuple, Num - 1>::template fn2<Inspector, F>(i, f);
 	}
 };
 

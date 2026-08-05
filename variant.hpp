@@ -132,7 +132,7 @@ struct Variant
 	{
 		_key = v._key;
 		switchf2([&] <typename T> (T& value) {
-			value = v.template view<T>();
+			new(data) T(v.view<T>());
 		});
 	}
 

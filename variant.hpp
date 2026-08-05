@@ -136,7 +136,7 @@ struct Variant
 		});
 	}
 
-	template <typename V>
+	template <typename V, std::enable_if_t<!std::is_same_v<std::remove_cv_t<std::remove_reference_t<V>>,Variant>, int> = 0>
 	explicit Variant(const V& v)
 	{
 		static_assert(keyOf<V>() != -1, "Type is not a member of variant.");
@@ -144,7 +144,7 @@ struct Variant
 		new(data) V(v);
 	}
 
-	template <typename V>
+	template <typename V, std::enable_if_t<!std::is_same_v<std::remove_cv_t<std::remove_reference_t<V>>,Variant>, int> = 0>
 	explicit Variant(V&& v)
 	{
 		static_assert(keyOf<V>() != -1, "Type is not a member of variant.");
